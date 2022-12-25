@@ -1,29 +1,14 @@
+import { createContext, useState, ReactNode, useMemo } from "react";
 import {
-  createContext,
-  useState,
-  Dispatch,
-  SetStateAction,
-  ReactNode,
-  useMemo,
-} from "react";
-
-type Themes = "dark" | "light";
-
-interface ThemeContextInterface {
-  theme: Themes;
-  setTheme: Dispatch<SetStateAction<Themes>>;
-}
+  ThemeContextInterface,
+  Themes,
+} from "../interfaces/themeContextInterface";
 
 interface Props {
   children: ReactNode;
 }
 
-const defaultValue = {
-  theme: "light" as Themes,
-  setTheme: () => {},
-};
-
-export const ThemeContext = createContext<ThemeContextInterface>(defaultValue);
+export const ThemeContext = createContext<ThemeContextInterface | null>(null);
 
 export function ThemeContextProvider({ children }: Props) {
   const lastTheme: Themes =
