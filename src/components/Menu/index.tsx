@@ -1,8 +1,9 @@
 import { Moon, Sun } from "phosphor-react";
 import { useTheme } from "../../hooks/useTheme";
+import { ThemeContextInterface } from "../../interfaces/themeContextInterface";
 
 export function Menu() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme() as ThemeContextInterface;
 
   const handleChangeTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
