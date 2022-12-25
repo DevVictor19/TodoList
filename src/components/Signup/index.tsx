@@ -1,8 +1,9 @@
 import { FormEvent, useRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import { AuthContextInterface } from "../../interfaces/authContextInterface";
 
 export function Signup() {
-  const auth = useAuth();
+  const { signup } = useAuth() as AuthContextInterface;
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -35,7 +36,7 @@ export function Signup() {
     try {
       setError("");
       setLoading(true);
-      await auth?.signup(email, password);
+      await signup(email, password);
     } catch (e) {
       setError("Failed to create an account");
       console.log(e);
