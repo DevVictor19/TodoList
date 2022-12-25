@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { auth } from "../firebase.config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {
@@ -15,9 +22,12 @@ interface Props {
 export function AuthContextProvider({ children }: Props) {
   const [currentUser, setCurrentUser] = useState<CurrentUser>(null);
 
-  const signup = (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
+  const signup = useCallback(
+    (email: string, password: string) => {
+      return createUserWithEmailAndPassword(auth, email, password);
+    },
+    [createUserWithEmailAndPassword]
+  );
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -27,10 +37,13 @@ export function AuthContextProvider({ children }: Props) {
     return unsubscribe;
   }, []);
 
-  const value = {
-    currentUser,
-    signup,
-  };
+  const value = useMemo(
+    () => ({
+      currentUser,
+      signup,
+    }),
+    [currentUser]
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
