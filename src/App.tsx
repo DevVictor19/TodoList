@@ -1,4 +1,7 @@
+import { Card } from "./components/Card";
+import { Login } from "./components/Login";
 import { Menu } from "./components/Menu";
+import { Signup } from "./components/Signup";
 
 export function App() {
   return (
@@ -9,6 +12,9 @@ export function App() {
     >
       <main className="max-w-[540px] w-full px-6">
         <Menu />
+        <Card>
+          <Signup />
+        </Card>
       </main>
     </div>
   );
