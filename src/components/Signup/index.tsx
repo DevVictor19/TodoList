@@ -59,8 +59,8 @@ export function Signup() {
         className="grid gap-4 mt-6"
         onChange={handleChange}
       >
+        {error && <p className="text-red-500">{error}</p>}
         <div className="grid gap-0.5 text-slate-900 dark:text-white">
-          {error && <p className="text-red-500 mb-2">{error}</p>}
           <label htmlFor="email">E-mail</label>
           <input
             className="h-10 rounded-[5px] p-2 bg-transparent border-2 border-[#494C6B] 
