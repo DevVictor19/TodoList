@@ -1,6 +1,7 @@
 import { FormEvent, useRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { AuthContextInterface } from "../../interfaces/authContextInterface";
+import { Link } from "react-router-dom";
 
 export function Signup() {
   const { signup } = useAuth() as AuthContextInterface;
@@ -99,9 +100,9 @@ export function Signup() {
           >
             Sign up
           </button>
-          <p className="underline mt-6">
+          <Link to="/" className="block underline mt-6">
             Click here to login with your account
-          </p>
+          </Link>
         </div>
       </form>
     </>
