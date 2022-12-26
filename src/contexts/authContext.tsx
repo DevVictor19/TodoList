@@ -1,11 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 import { auth } from "../firebase.config";
 import {
   createUserWithEmailAndPassword,
@@ -25,19 +18,13 @@ interface Props {
 export function AuthContextProvider({ children }: Props) {
   const [currentUser, setCurrentUser] = useState<CurrentUser>(null);
 
-  const signup = useCallback(
-    (email: string, password: string) => {
-      return createUserWithEmailAndPassword(auth, email, password);
-    },
-    [createUserWithEmailAndPassword]
-  );
+  const signup = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
-  const login = useCallback(
-    (email: string, password: string) => {
-      return signInWithEmailAndPassword(auth, email, password);
-    },
-    [signInWithEmailAndPassword]
-  );
+  const login = (email: string, password: string) => {
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -53,7 +40,7 @@ export function AuthContextProvider({ children }: Props) {
       signup,
       login,
     }),
-    [currentUser]
+    [currentUser, login, signup]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
