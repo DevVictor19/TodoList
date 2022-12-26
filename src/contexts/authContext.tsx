@@ -7,7 +7,10 @@ import {
   useState,
 } from "react";
 import { auth } from "../firebase.config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import {
   AuthContextInterface,
   CurrentUser,
@@ -29,6 +32,13 @@ export function AuthContextProvider({ children }: Props) {
     [createUserWithEmailAndPassword]
   );
 
+  const login = useCallback(
+    (email: string, password: string) => {
+      return signInWithEmailAndPassword(auth, email, password);
+    },
+    [signInWithEmailAndPassword]
+  );
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
@@ -41,6 +51,7 @@ export function AuthContextProvider({ children }: Props) {
     () => ({
       currentUser,
       signup,
+      login,
     }),
     [currentUser]
   );
