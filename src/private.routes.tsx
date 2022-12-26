@@ -1,5 +1,5 @@
 import { useAuth } from "./hooks/useAuth";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { AuthContextInterface } from "./interfaces/authContextInterface";
 import { Todo } from "./components/Todo";
 
