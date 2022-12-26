@@ -2,6 +2,7 @@ import { FormEvent, useRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { AuthContextInterface } from "../../interfaces/authContextInterface";
 import { Link } from "react-router-dom";
+import { Card } from "../Card";
 
 export function Signup() {
   const { signup } = useAuth() as AuthContextInterface;
@@ -53,7 +54,7 @@ export function Signup() {
   };
 
   return (
-    <>
+    <Card styleClasses="mt-10">
       <h1 className="text-lg font-bold">Sign up and start using it!</h1>
       <form
         onSubmit={handleSubmit}
@@ -105,6 +106,6 @@ export function Signup() {
           </Link>
         </div>
       </form>
-    </>
+    </Card>
   );
 }
