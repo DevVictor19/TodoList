@@ -13,7 +13,7 @@ export function Bar() {
         className="w-full pl-[52px] pr-5 py-[18px] outline-none rounded-[5px] bg-white 
         dark:bg-[#25273D] shadow-[0px_35px_50px_-15px_#c2c3d67f] dark:shadow-[0px_35px_50px_-15px_#0000007f] 
         placeholder:text-[#9495A5] dark:placeholder:text-[#767992] text-slate-900 
-        dark:text-white"
+        dark:text-white text-xs"
         type="text"
         placeholder="Create a new todo…"
       />
