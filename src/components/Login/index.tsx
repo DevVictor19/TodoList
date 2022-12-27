@@ -39,7 +39,7 @@ export function Login() {
     setLoading(false);
   };
   return (
-    <Card styleClasses="mt-10">
+    <Card styleClasses="mt-10 p-5">
       <h1 className="text-lg font-bold">Log In with your account</h1>
       <form className="grid gap-4 mt-6" onSubmit={handleSubmit}>
         {error && <p className="text-red-500">{error}</p>}

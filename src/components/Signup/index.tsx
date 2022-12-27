@@ -54,7 +54,7 @@ export function Signup() {
   };
 
   return (
-    <Card styleClasses="mt-10">
+    <Card styleClasses="mt-10 p-5">
       <h1 className="text-lg font-bold">Sign up and start using it!</h1>
       <form
         onSubmit={handleSubmit}

@@ -25,7 +25,7 @@ export function Profile() {
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>
         <DropdownMenu.Content sideOffset={5}>
-          <Card>
+          <Card styleClasses="p-5">
             <nav>
               <DropdownMenu.Item
                 className="flex items-center gap-4 cursor-pointer"
