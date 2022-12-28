@@ -1,41 +1,26 @@
 import { useRef, FormEvent } from "react";
 import { Check } from "phosphor-react";
 import { Todo } from "../../../interfaces/Todo";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../../firebase.config";
-import { useAuth } from "../../../hooks/useAuth";
 
 interface Props {
-  onSubmit: (todo: Todo) => void;
+  onAddTodo: (newTodo: Todo) => void;
 }
 
-export function Bar({ onSubmit }: Props) {
+export function Bar({ onAddTodo }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { currentUser } = useAuth();
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!inputRef.current?.value) return;
 
-    const todoId = crypto.randomUUID();
-
     const newTodo: Todo = {
       name: inputRef.current.value,
-      id: todoId,
+      id: crypto.randomUUID(),
       completed: false,
     };
 
-    try {
-      await setDoc(
-        doc(db, "users", currentUser!.uid, "todos", todoId),
-        newTodo
-      );
-      inputRef.current.value = "";
-      onSubmit(newTodo);
-    } catch (e) {
-      console.log(e);
-    }
+    onAddTodo(newTodo);
   };
 
   return (
