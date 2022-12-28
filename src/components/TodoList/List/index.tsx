@@ -1,25 +1,25 @@
-import { Task } from "../../../interfaces/Task";
+import { Todo } from "../../../interfaces/Todo";
 import { Card } from "../../Card";
 import { ListItem } from "./ListItem";
 import { ListMenu } from "./ListMenu";
 
 interface Props {
-  tasks: Task[];
+  todos: Todo[];
   onRemove: (id: string) => void;
   onToggleComplete: (id: string, newState: boolean) => void;
 }
 
-export function List({ tasks, onRemove, onToggleComplete }: Props) {
+export function List({ todos, onRemove, onToggleComplete }: Props) {
   return (
     <Card styleClasses="mt-4 max-h-[368px] h-full">
       <div>
         <ul className="max-h-[317px] h-[315px] overflow-auto">
-          {tasks.map((task) => (
+          {todos.map((todo) => (
             <ListItem
-              key={task.id}
-              id={task.id}
-              name={task.name}
-              completed={task.completed}
+              key={todo.id}
+              id={todo.id}
+              name={todo.name}
+              completed={todo.completed}
               onRemove={onRemove}
               onToggleComplete={onToggleComplete}
             />

@@ -1,9 +1,9 @@
 import { useAuth } from "./hooks/useAuth";
 import { Outlet } from "react-router-dom";
-import { Todo } from "./components/Todo";
+import { TodoList } from "./components/TodoList";
 
 export function PrivateRoutes() {
   const { currentUser } = useAuth();
 
-  return currentUser === null ? <Outlet /> : <Todo />;
+  return currentUser === null ? <Outlet /> : <TodoList />;
 }

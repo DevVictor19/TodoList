@@ -1,12 +1,12 @@
 import { Check, X } from "phosphor-react";
 import { useAuth } from "../../../../hooks/useAuth";
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
-import { Task } from "../../../../interfaces/Task";
+import { Todo } from "../../../../interfaces/Todo";
 import { db } from "../../../../firebase.config";
 
 const buttonActiveStyles = "bg-gradient-to-br from-[#55DDFF] to-[#C058F3]";
 
-interface Props extends Task {
+interface Props extends Todo {
   onRemove: (id: string) => void;
   onToggleComplete: (id: string, newState: boolean) => void;
 }
@@ -24,7 +24,7 @@ export function ListItem({
     const newState = !completed;
 
     try {
-      await updateDoc(doc(db, "users", currentUser!.uid, "tasks", id), {
+      await updateDoc(doc(db, "users", currentUser!.uid, "todos", id), {
         completed: newState,
       });
       onToggleComplete(id, newState);
@@ -35,7 +35,7 @@ export function ListItem({
 
   const handleRemove = async (id: string) => {
     try {
-      await deleteDoc(doc(db, "users", currentUser!.uid, "tasks", id));
+      await deleteDoc(doc(db, "users", currentUser!.uid, "todos", id));
       onRemove(id);
     } catch (e) {
       console.log(e);

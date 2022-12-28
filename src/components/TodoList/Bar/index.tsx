@@ -1,12 +1,12 @@
 import { useRef, FormEvent } from "react";
 import { Check } from "phosphor-react";
-import { Task } from "../../../interfaces/Task";
+import { Todo } from "../../../interfaces/Todo";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../../firebase.config";
 import { useAuth } from "../../../hooks/useAuth";
 
 interface Props {
-  onSubmit: (task: Task) => void;
+  onSubmit: (todo: Todo) => void;
 }
 
 export function Bar({ onSubmit }: Props) {
@@ -18,21 +18,21 @@ export function Bar({ onSubmit }: Props) {
 
     if (!inputRef.current?.value) return;
 
-    const taskId = crypto.randomUUID();
+    const todoId = crypto.randomUUID();
 
-    const newTask: Task = {
+    const newTodo: Todo = {
       name: inputRef.current.value,
-      id: taskId,
+      id: todoId,
       completed: false,
     };
 
     try {
       await setDoc(
-        doc(db, "users", currentUser!.uid, "tasks", taskId),
-        newTask
+        doc(db, "users", currentUser!.uid, "todos", todoId),
+        newTodo
       );
       inputRef.current.value = "";
-      onSubmit(newTask);
+      onSubmit(newTodo);
     } catch (e) {
       console.log(e);
     }
