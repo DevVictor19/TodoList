@@ -1,11 +1,10 @@
 import { Moon, Sun } from "phosphor-react";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
-import { IThemeContext } from "../../interfaces/ThemeContext";
 import { Profile } from "./Profile";
 
 export function Menu() {
-  const { theme, setTheme } = useTheme() as IThemeContext;
+  const { theme, setTheme } = useTheme();
   const { currentUser } = useAuth();
 
   const handleChangeTheme = () => {
