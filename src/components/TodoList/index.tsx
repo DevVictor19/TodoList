@@ -4,42 +4,24 @@ import { Filter } from "./Filter";
 import { List } from "./List";
 import { useAuth } from "../../hooks/useAuth";
 import { Todo } from "../../interfaces/Todo";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase.config";
+import { useTodo } from "../../hooks/useTodo";
 
 export function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const { currentUser } = useAuth();
+  const { getTodos, addTodo } = useTodo(currentUser!.uid);
 
   useEffect(() => {
-    const getTodos = async () => {
-      try {
-        const querySnapShot = await getDocs(
-          collection(db, "users", currentUser!.uid, "todos")
-        );
-
-        const dbTodos: Todo[] = [];
-
-        querySnapShot.forEach((doc) => {
-          dbTodos.push(doc.data() as Todo);
-        });
-
-        setTodos(dbTodos);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    console.log("useeffect");
-
-    getTodos();
+    getTodos().then(setTodos).catch(console.log);
   }, []);
 
   const handleAddTodo = useCallback(
-    (todo: Todo) => {
-      setTodos((prev) => prev.concat(todo));
+    (newTodo: Todo) => {
+      addTodo(newTodo)
+        .then(() => setTodos((prev) => prev.concat(newTodo)))
+        .catch(console.log);
     },
-    [setTodos]
+    [addTodo, setTodos]
   );
 
   const handleRemoveTodo = useCallback(
@@ -64,7 +46,7 @@ export function TodoList() {
 
   return (
     <>
-      <Bar onSubmit={handleAddTodo} />
+      <Bar onAddTodo={handleAddTodo} />
       <List
         todos={todos}
         onRemove={handleRemoveTodo}
