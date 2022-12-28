@@ -5,12 +5,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import {
-  AuthContextInterface,
-  CurrentUser,
-} from "../interfaces/authContextInterface";
+import { IAuthContext, CurrentUser } from "../interfaces/AuthContext";
 
-export const AuthContext = createContext<AuthContextInterface | null>(null);
+export const AuthContext = createContext<IAuthContext | null>(null);
 
 interface Props {
   children: ReactNode;

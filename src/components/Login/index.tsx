@@ -1,11 +1,11 @@
 import { useRef, useState, FormEvent } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { AuthContextInterface } from "../../interfaces/authContextInterface";
+import { IAuthContext } from "../../interfaces/AuthContext";
 import { Link } from "react-router-dom";
 import { Card } from "../Card";
 
 export function Login() {
-  const { login } = useAuth() as AuthContextInterface;
+  const { login } = useAuth() as IAuthContext;
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);

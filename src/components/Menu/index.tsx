@@ -1,13 +1,13 @@
 import { Moon, Sun } from "phosphor-react";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
-import { AuthContextInterface } from "../../interfaces/authContextInterface";
-import { ThemeContextInterface } from "../../interfaces/themeContextInterface";
+import { IAuthContext } from "../../interfaces/AuthContext";
+import { IThemeContext } from "../../interfaces/ThemeContext";
 import { Profile } from "./Profile";
 
 export function Menu() {
-  const { theme, setTheme } = useTheme() as ThemeContextInterface;
-  const { currentUser } = useAuth() as AuthContextInterface;
+  const { theme, setTheme } = useTheme() as IThemeContext;
+  const { currentUser } = useAuth() as IAuthContext;
 
   const handleChangeTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));

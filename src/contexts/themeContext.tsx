@@ -1,14 +1,11 @@
 import { createContext, useState, ReactNode, useMemo } from "react";
-import {
-  ThemeContextInterface,
-  Themes,
-} from "../interfaces/themeContextInterface";
+import { IThemeContext, Themes } from "../interfaces/ThemeContext";
 
 interface Props {
   children: ReactNode;
 }
 
-export const ThemeContext = createContext<ThemeContextInterface | null>(null);
+export const ThemeContext = createContext<IThemeContext | null>(null);
 
 export function ThemeContextProvider({ children }: Props) {
   const lastTheme: Themes =
