@@ -1,24 +1,41 @@
 import { useRef, FormEvent } from "react";
 import { Check } from "phosphor-react";
 import { Task } from "../../../interfaces/Task";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../../firebase.config";
+import { useAuth } from "../../../hooks/useAuth";
 
 interface Props {
-  onSubmit: (task: Task) => Promise<void>;
+  onSubmit: (task: Task) => void;
 }
 
 export function Bar({ onSubmit }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { currentUser } = useAuth();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!inputRef.current?.value) return;
 
-    onSubmit({
-      completed: false,
+    const taskId = crypto.randomUUID();
+
+    const newTask: Task = {
       name: inputRef.current.value,
-      id: crypto.randomUUID(),
-    });
+      id: taskId,
+      completed: false,
+    };
+
+    try {
+      await setDoc(
+        doc(db, "users", currentUser!.uid, "tasks", taskId),
+        newTask
+      );
+      inputRef.current.value = "";
+      onSubmit(newTask);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

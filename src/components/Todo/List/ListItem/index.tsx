@@ -1,15 +1,45 @@
 import { Check, X } from "phosphor-react";
+import { useAuth } from "../../../../hooks/useAuth";
+import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { Task } from "../../../../interfaces/Task";
+import { db } from "../../../../firebase.config";
 
 const buttonActiveStyles = "bg-gradient-to-br from-[#55DDFF] to-[#C058F3]";
 
-export function ListItem({ name, completed, id }: Task) {
-  const handleComplete = () => {
-    alert("Complete item");
+interface Props extends Task {
+  onRemove: (id: string) => void;
+  onToggleComplete: (id: string, newState: boolean) => void;
+}
+
+export function ListItem({
+  name,
+  completed,
+  id,
+  onRemove,
+  onToggleComplete,
+}: Props) {
+  const { currentUser } = useAuth();
+
+  const handleComplete = async (id: string) => {
+    const newState = !completed;
+
+    try {
+      await updateDoc(doc(db, "users", currentUser!.uid, "tasks", id), {
+        completed: newState,
+      });
+      onToggleComplete(id, newState);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const handleRemove = () => {
-    alert("Remove item");
+  const handleRemove = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, "users", currentUser!.uid, "tasks", id));
+      onRemove(id);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -23,7 +53,7 @@ export function ListItem({ name, completed, id }: Task) {
           completed && buttonActiveStyles
         }`}
         type="submit"
-        onClick={handleComplete}
+        onClick={(_) => handleComplete(id)}
       >
         <Check
           className={`text-white  ${completed ? "block" : "hidden"}`}
@@ -40,7 +70,10 @@ export function ListItem({ name, completed, id }: Task) {
       >
         {name}
       </p>
-      <button className="ml-auto text-[#494C6B]" onClick={handleRemove}>
+      <button
+        className="ml-auto text-[#494C6B]"
+        onClick={(_) => handleRemove(id)}
+      >
         <X size={22} weight="light" />
       </button>
     </li>

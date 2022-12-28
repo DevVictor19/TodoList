@@ -3,59 +3,73 @@ import { Bar } from "./Bar";
 import { Filter } from "./Filter";
 import { List } from "./List";
 import { useAuth } from "../../hooks/useAuth";
-import { useFirestore } from "../../hooks/useFirestore";
 import { Task } from "../../interfaces/Task";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase.config";
 
 export function Todo() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState(false);
   const { currentUser } = useAuth();
-  const { getTasks, addTask } = useFirestore(currentUser!.uid);
-
-  const handleGetTasks = async () => {
-    setLoading(true);
-    try {
-      const querySnapShot = await getTasks();
-
-      const tasks: Task[] = [];
-
-      querySnapShot.forEach((doc) => {
-        tasks.push(doc.data() as Task);
-
-        setTasks(tasks);
-      });
-
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-
-  const handleAddTask = useCallback(
-    async (task: Task) => {
-      try {
-        await addTask({
-          id: tasks.length.toString(),
-          name: task.name,
-          completed: task.completed,
-        });
-        setTasks((prev) => prev.concat(task));
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [addTask, setTasks]
-  );
 
   useEffect(() => {
-    handleGetTasks();
+    const getTasks = async () => {
+      try {
+        const querySnapShot = await getDocs(
+          collection(db, "users", currentUser!.uid, "tasks")
+        );
+
+        const dbTasks: Task[] = [];
+
+        querySnapShot.forEach((doc) => {
+          dbTasks.push(doc.data() as Task);
+        });
+
+        setTasks(dbTasks);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    console.log("useeffect");
+
+    getTasks();
   }, []);
+
+  const handleAddTask = useCallback(
+    (task: Task) => {
+      setTasks((prev) => prev.concat(task));
+    },
+    [setTasks]
+  );
+
+  const handleRemoveTask = useCallback(
+    (id: string) => {
+      setTasks((prev) => prev.filter((task) => task.id !== id));
+    },
+    [setTasks]
+  );
+
+  const handleToggleCompleteTask = useCallback(
+    (id: string, newState: boolean) => {
+      setTasks((prev) =>
+        prev.map((task) => ({
+          id: task.id,
+          name: task.name,
+          completed: task.id === id ? newState : task.completed,
+        }))
+      );
+    },
+    [setTasks]
+  );
 
   return (
     <>
       <Bar onSubmit={handleAddTask} />
-      <List tasks={tasks} />
+      <List
+        tasks={tasks}
+        onRemove={handleRemoveTask}
+        onToggleComplete={handleToggleCompleteTask}
+      />
       <Filter />
     </>
   );
