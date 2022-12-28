@@ -1,10 +1,24 @@
+import { useRef, FormEvent } from "react";
 import { Check } from "phosphor-react";
-import { FormEvent } from "react";
+import { Task } from "../../../interfaces/Task";
 
-export function Bar() {
+interface Props {
+  onSubmit: (task: Task) => Promise<void>;
+}
+
+export function Bar({ onSubmit }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert("submited");
+
+    if (!inputRef.current?.value) return;
+
+    onSubmit({
+      completed: false,
+      name: inputRef.current.value,
+      id: crypto.randomUUID(),
+    });
   };
 
   return (
@@ -15,6 +29,7 @@ export function Bar() {
         placeholder:text-[#9495A5] dark:placeholder:text-[#767992] text-slate-900 
         dark:text-white text-xs"
         type="text"
+        ref={inputRef}
         placeholder="Create a new todo…"
       />
       <button
