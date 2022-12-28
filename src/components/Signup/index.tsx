@@ -1,11 +1,10 @@
 import { FormEvent, useRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { IAuthContext } from "../../interfaces/AuthContext";
 import { Link } from "react-router-dom";
 import { Card } from "../Card";
 
 export function Signup() {
-  const { signup } = useAuth() as IAuthContext;
+  const { signup } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);

@@ -1,10 +1,9 @@
 import { useAuth } from "./hooks/useAuth";
 import { Outlet } from "react-router-dom";
-import { IAuthContext } from "./interfaces/AuthContext";
 import { Todo } from "./components/Todo";
 
 export function PrivateRoutes() {
-  const { currentUser } = useAuth() as IAuthContext;
+  const { currentUser } = useAuth();
 
   return currentUser === null ? <Outlet /> : <Todo />;
 }

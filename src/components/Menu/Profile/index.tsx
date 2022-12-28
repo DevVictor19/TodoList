@@ -2,11 +2,10 @@ import { useCallback } from "react";
 import { UserCircle, SignOut } from "phosphor-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useAuth } from "../../../hooks/useAuth";
-import { IAuthContext } from "../../../interfaces/AuthContext";
 import { Card } from "../../Card";
 
 export function Profile() {
-  const { logout } = useAuth() as IAuthContext;
+  const { logout } = useAuth();
 
   const handleLogout = useCallback(async () => {
     try {
