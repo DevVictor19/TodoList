@@ -1,10 +1,9 @@
 import { Check, X } from "phosphor-react";
+import { Task } from "../../../../interfaces/Task";
 
 const buttonActiveStyles = "bg-gradient-to-br from-[#55DDFF] to-[#C058F3]";
 
-export function ListItem() {
-  const completed = false;
-
+export function ListItem({ name, completed, id }: Task) {
   const handleComplete = () => {
     alert("Complete item");
   };
@@ -39,7 +38,7 @@ export function ListItem() {
             : "text-[#494C6B] dark:text-[#C8CBE7]"
         }`}
       >
-        Jog around the park 3x
+        {name}
       </p>
       <button className="ml-auto text-[#494C6B]" onClick={handleRemove}>
         <X size={22} weight="light" />
