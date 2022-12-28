@@ -11,7 +11,7 @@ export function List({ tasks }: Props) {
   return (
     <Card styleClasses="mt-4 max-h-[368px] h-full">
       <div>
-        <ul className="max-h-[317px] overflow-auto">
+        <ul className="max-h-[317px] h-[315px] overflow-auto">
           {tasks.map((task) => (
             <ListItem
               key={task.id}
