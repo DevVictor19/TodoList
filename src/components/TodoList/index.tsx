@@ -32,7 +32,7 @@ export function TodoList() {
         .then(() => setTodos((prev) => prev.filter((todo) => todo.id !== id)))
         .catch(console.log);
     },
-    [setTodos]
+    [setTodos, removeTodo]
   );
 
   const handleToggleCompleteTodo = useCallback(
