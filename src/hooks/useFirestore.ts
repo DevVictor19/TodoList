@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
-import { ITodo } from "../ts/interfaces/ITodo";
+import { ITodo } from "../ts/interfaces/Todo";
 
 export function useFirestore(userId: string) {
   const collectionRef = collection(db, "users", userId, "todos");
