@@ -7,9 +7,18 @@ interface Props {
   todos: Todo[];
   onRemoveTodo: (id: string) => void;
   onToggleCompleteTodo: (id: string, currentState: boolean) => void;
+  onClearCompletedTodos: (
+    incompleteTodos: Todo[],
+    completedTodosId: string[]
+  ) => void;
 }
 
-export function List({ todos, onRemoveTodo, onToggleCompleteTodo }: Props) {
+export function List({
+  todos,
+  onRemoveTodo,
+  onToggleCompleteTodo,
+  onClearCompletedTodos,
+}: Props) {
   return (
     <Card styleClasses="mt-4 max-h-[368px] h-full">
       <div>
@@ -25,7 +34,7 @@ export function List({ todos, onRemoveTodo, onToggleCompleteTodo }: Props) {
             />
           ))}
         </ul>
-        <ListMenu />
+        <ListMenu todos={todos} onClearCompletedTodos={onClearCompletedTodos} />
       </div>
     </Card>
   );

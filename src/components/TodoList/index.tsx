@@ -50,6 +50,21 @@ export function TodoList() {
     [setTodos, toggleCompleteTodo]
   );
 
+  const handleClearCompletedTodos = useCallback(
+    (incompleteTodos: Todo[], completedTodosId: string[]) => {
+      let promises: Promise<void>[] = [];
+
+      completedTodosId.forEach((id) => {
+        promises.push(removeTodo(id));
+      });
+
+      Promise.all(promises)
+        .then(() => setTodos(incompleteTodos))
+        .catch(console.log);
+    },
+    [setTodos, removeTodo]
+  );
+
   return (
     <>
       <Bar onAddTodo={handleAddTodo} />
@@ -57,6 +72,7 @@ export function TodoList() {
         todos={todos}
         onRemoveTodo={handleRemoveTodo}
         onToggleCompleteTodo={handleToggleCompleteTodo}
+        onClearCompletedTodos={handleClearCompletedTodos}
       />
       <Filter />
     </>
