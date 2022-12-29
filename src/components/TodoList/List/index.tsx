@@ -1,10 +1,10 @@
-import { Todo } from "../../../interfaces/Todo";
+import { ITodo } from "../../../ts/interfaces/Todo";
 import { Card } from "../../Card";
 import { ListItem } from "./ListItem";
 import { ListMenu } from "./ListMenu";
 
 interface Props {
-  todos: Todo[];
+  todos: ITodo[];
   onRemoveTodo: (id: string) => void;
   onToggleCompleteTodo: (id: string, currentState: boolean) => void;
   onClearCompletedTodos: () => void;

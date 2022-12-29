@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-
-export type Themes = "dark" | "light";
+import { Themes } from "../types/Themes";
 
 export interface IThemeContext {
   theme: Themes;

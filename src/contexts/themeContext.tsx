@@ -1,5 +1,6 @@
 import { createContext, useState, ReactNode, useMemo } from "react";
-import { IThemeContext, Themes } from "../interfaces/ThemeContext";
+import { IThemeContext } from "../ts/interfaces/ThemeContext";
+import { Themes } from "../ts/types/Themes";
 
 interface Props {
   children: ReactNode;

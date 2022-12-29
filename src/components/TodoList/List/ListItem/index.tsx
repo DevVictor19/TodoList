@@ -1,9 +1,9 @@
 import { Check, X } from "phosphor-react";
-import { Todo } from "../../../../interfaces/Todo";
+import { ITodo } from "../../../../ts/interfaces/Todo";
 
 const buttonActiveStyles = "bg-gradient-to-br from-[#55DDFF] to-[#C058F3]";
 
-interface Props extends Todo {
+interface Props extends ITodo {
   onRemoveTodo: (id: string) => void;
   onToggleCompleteTodo: (id: string, currentState: boolean) => void;
 }

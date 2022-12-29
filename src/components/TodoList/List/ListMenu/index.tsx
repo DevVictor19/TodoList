@@ -1,5 +1,3 @@
-import { Todo } from "../../../../interfaces/Todo";
-
 interface Props {
   incompletedTodosNumber: number;
   onClearCompletedTodos: () => void;

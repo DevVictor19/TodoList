@@ -1,6 +1,5 @@
-import { User, UserCredential } from "firebase/auth";
-
-export type CurrentUser = User | null;
+import { UserCredential } from "firebase/auth";
+import { CurrentUser } from "../types/CurrentUser";
 
 export interface IAuthContext {
   currentUser: CurrentUser;

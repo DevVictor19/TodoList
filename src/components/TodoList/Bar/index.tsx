@@ -1,9 +1,9 @@
 import { useRef, FormEvent } from "react";
 import { Check } from "phosphor-react";
-import { Todo } from "../../../interfaces/Todo";
+import { ITodo } from "../../../ts/interfaces/Todo";
 
 interface Props {
-  onAddTodo: (newTodo: Todo) => void;
+  onAddTodo: (newTodo: ITodo) => void;
 }
 
 export function Bar({ onAddTodo }: Props) {
@@ -14,7 +14,7 @@ export function Bar({ onAddTodo }: Props) {
 
     if (!inputRef.current?.value) return;
 
-    const newTodo: Todo = {
+    const newTodo: ITodo = {
       name: inputRef.current.value,
       id: crypto.randomUUID(),
       completed: false,

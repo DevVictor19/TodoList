@@ -5,7 +5,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { IAuthContext, CurrentUser } from "../interfaces/AuthContext";
+import { IAuthContext } from "../ts/interfaces/AuthContext";
+import { CurrentUser } from "../ts/types/CurrentUser";
 
 export const AuthContext = createContext<IAuthContext | null>(null);
 

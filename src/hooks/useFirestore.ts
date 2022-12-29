@@ -8,19 +8,19 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
-import { Todo } from "../interfaces/Todo";
+import { ITodo } from "../ts/interfaces/ITodo";
 
 export function useFirestore(userId: string) {
   const collectionRef = collection(db, "users", userId, "todos");
 
   const getTodos = async () => {
-    let dbTodos: Todo[] = [];
+    let dbTodos: ITodo[] = [];
 
     try {
       const querySnapShot = await getDocs(query(collectionRef));
 
       querySnapShot.forEach((doc) => {
-        dbTodos.push(doc.data() as Todo);
+        dbTodos.push(doc.data() as ITodo);
       });
     } catch (error) {
       console.log(error);
@@ -29,7 +29,7 @@ export function useFirestore(userId: string) {
     return dbTodos;
   };
 
-  const addTodo = async (newTodo: Todo) => {
+  const addTodo = async (newTodo: ITodo) => {
     try {
       await setDoc(doc(db, "users", userId, "todos", newTodo.id), newTodo);
     } catch (error) {
