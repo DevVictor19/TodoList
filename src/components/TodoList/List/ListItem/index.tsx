@@ -15,11 +15,11 @@ export function ListItem({
   onRemoveTodo,
   onToggleCompleteTodo,
 }: Props) {
-  const handleComplete = async (id: string) => {
+  const handleComplete = async () => {
     onToggleCompleteTodo(id, completed);
   };
 
-  const handleRemove = (id: string) => {
+  const handleRemove = () => {
     onRemoveTodo(id);
   };
 
@@ -34,7 +34,7 @@ export function ListItem({
           completed && buttonActiveStyles
         }`}
         type="submit"
-        onClick={(_) => handleComplete(id)}
+        onClick={handleComplete}
       >
         <Check
           className={`text-white  ${completed ? "block" : "hidden"}`}
@@ -51,10 +51,7 @@ export function ListItem({
       >
         {name}
       </p>
-      <button
-        className="ml-auto text-[#494C6B]"
-        onClick={(_) => handleRemove(id)}
-      >
+      <button className="ml-auto text-[#494C6B]" onClick={handleRemove}>
         <X size={22} weight="light" />
       </button>
     </li>
