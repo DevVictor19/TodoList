@@ -15,7 +15,7 @@ export function ListItem({
   onRemoveTodo,
   onToggleCompleteTodo,
 }: Props) {
-  const handleComplete = async () => {
+  const handleComplete = () => {
     onToggleCompleteTodo(id, completed);
   };
 
