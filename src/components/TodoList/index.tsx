@@ -9,7 +9,9 @@ import { useFirestore } from "../../hooks/useFirestore";
 export function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const { currentUser } = useAuth();
-  const { getTodos, addTodo, removeTodo } = useFirestore(currentUser!.uid);
+  const { getTodos, addTodo, removeTodo, toggleCompleteTodo } = useFirestore(
+    currentUser!.uid
+  );
 
   useEffect(() => {
     getTodos().then(setTodos).catch(console.log);
@@ -34,16 +36,18 @@ export function TodoList() {
   );
 
   const handleToggleCompleteTodo = useCallback(
-    (id: string, newState: boolean) => {
-      setTodos((prev) =>
-        prev.map((todo) => ({
-          id: todo.id,
-          name: todo.name,
-          completed: todo.id === id ? newState : todo.completed,
-        }))
-      );
+    (id: string, currentState: boolean) => {
+      toggleCompleteTodo(id, currentState).then(() => {
+        setTodos((prev) =>
+          prev.map((todo) => ({
+            id: todo.id,
+            name: todo.name,
+            completed: todo.id === id ? !currentState : todo.completed,
+          }))
+        );
+      });
     },
-    [setTodos]
+    [setTodos, toggleCompleteTodo]
   );
 
   return (
@@ -52,7 +56,7 @@ export function TodoList() {
       <List
         todos={todos}
         onRemoveTodo={handleRemoveTodo}
-        onToggleComplete={handleToggleCompleteTodo}
+        onToggleCompleteTodo={handleToggleCompleteTodo}
       />
       <Filter />
     </>

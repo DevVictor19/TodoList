@@ -6,10 +6,10 @@ import { ListMenu } from "./ListMenu";
 interface Props {
   todos: Todo[];
   onRemoveTodo: (id: string) => void;
-  onToggleComplete: (id: string, newState: boolean) => void;
+  onToggleCompleteTodo: (id: string, currentState: boolean) => void;
 }
 
-export function List({ todos, onRemoveTodo, onToggleComplete }: Props) {
+export function List({ todos, onRemoveTodo, onToggleCompleteTodo }: Props) {
   return (
     <Card styleClasses="mt-4 max-h-[368px] h-full">
       <div>
@@ -21,7 +21,7 @@ export function List({ todos, onRemoveTodo, onToggleComplete }: Props) {
               name={todo.name}
               completed={todo.completed}
               onRemoveTodo={onRemoveTodo}
-              onToggleComplete={onToggleComplete}
+              onToggleCompleteTodo={onToggleCompleteTodo}
             />
           ))}
         </ul>

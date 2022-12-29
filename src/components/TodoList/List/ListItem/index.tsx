@@ -1,14 +1,11 @@
 import { Check, X } from "phosphor-react";
-import { useAuth } from "../../../../hooks/useAuth";
-import { doc, deleteDoc, updateDoc } from "firebase/firestore";
 import { Todo } from "../../../../interfaces/Todo";
-import { db } from "../../../../firebase.config";
 
 const buttonActiveStyles = "bg-gradient-to-br from-[#55DDFF] to-[#C058F3]";
 
 interface Props extends Todo {
   onRemoveTodo: (id: string) => void;
-  onToggleComplete: (id: string, newState: boolean) => void;
+  onToggleCompleteTodo: (id: string, currentState: boolean) => void;
 }
 
 export function ListItem({
@@ -16,21 +13,10 @@ export function ListItem({
   completed,
   id,
   onRemoveTodo,
-  onToggleComplete,
+  onToggleCompleteTodo,
 }: Props) {
-  const { currentUser } = useAuth();
-
   const handleComplete = async (id: string) => {
-    const newState = !completed;
-
-    try {
-      await updateDoc(doc(db, "users", currentUser!.uid, "todos", id), {
-        completed: newState,
-      });
-      onToggleComplete(id, newState);
-    } catch (e) {
-      console.log(e);
-    }
+    onToggleCompleteTodo(id, completed);
   };
 
   const handleRemove = (id: string) => {

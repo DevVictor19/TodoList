@@ -5,6 +5,7 @@ import {
   getDocs,
   query,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { Todo } from "../interfaces/Todo";
@@ -44,9 +45,20 @@ export function useFirestore(userId: string) {
     }
   };
 
+  const toggleCompleteTodo = async (id: string, currentState: boolean) => {
+    try {
+      await updateDoc(doc(db, "users", userId, "todos", id), {
+        completed: !currentState,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getTodos,
     addTodo,
     removeTodo,
+    toggleCompleteTodo,
   };
 }
