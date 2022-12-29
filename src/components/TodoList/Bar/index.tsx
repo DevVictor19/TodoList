@@ -21,6 +21,8 @@ export function Bar({ onAddTodo }: Props) {
     };
 
     onAddTodo(newTodo);
+
+    inputRef.current.value = "";
   };
 
   return (
