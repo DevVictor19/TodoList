@@ -4,12 +4,12 @@ import { Filter } from "./Filter";
 import { List } from "./List";
 import { useAuth } from "../../hooks/useAuth";
 import { Todo } from "../../interfaces/Todo";
-import { useTodo } from "../../hooks/useTodo";
+import { useFirestore } from "../../hooks/useFirestore";
 
 export function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const { currentUser } = useAuth();
-  const { getTodos, addTodo, removeTodo } = useTodo(currentUser!.uid);
+  const { getTodos, addTodo, removeTodo } = useFirestore(currentUser!.uid);
 
   useEffect(() => {
     getTodos().then(setTodos).catch(console.log);
