@@ -9,7 +9,7 @@ import {
 import { db } from "../firebase.config";
 import { Todo } from "../interfaces/Todo";
 
-export function useTodo(userId: string) {
+export function useFirestore(userId: string) {
   const collectionRef = collection(db, "users", userId, "todos");
 
   const getTodos = async () => {
