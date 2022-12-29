@@ -3,18 +3,33 @@ import { Bar } from "./Bar";
 import { Filter } from "./Filter";
 import { List } from "./List";
 import { useAuth } from "../../hooks/useAuth";
-import { Todo } from "../../interfaces/Todo";
+import { ITodo } from "../../ts/interfaces/Todo";
 import { useFirestore } from "../../hooks/useFirestore";
+import { FilterOptions } from "../../ts/types/FilterOptions";
 
 export function TodoList() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<ITodo[]>([]);
+  const [filter, setFilter] = useState<FilterOptions>("all");
   const { currentUser } = useAuth();
   const { getTodos, addTodo, removeTodo, toggleCompleteTodo } = useFirestore(
     currentUser!.uid
   );
 
-  const completedTodos: Todo[] = [];
-  const incompletedTodos: Todo[] = [];
+  const completedTodos: ITodo[] = [];
+  const incompletedTodos: ITodo[] = [];
+
+  let listContent: ITodo[] = [];
+
+  switch (filter) {
+    case "active":
+      listContent = incompletedTodos;
+      break;
+    case "completed":
+      listContent = completedTodos;
+      break;
+    default:
+      listContent = todos;
+  }
 
   todos.forEach((todo) => {
     if (todo.completed) {
@@ -29,7 +44,7 @@ export function TodoList() {
   }, []);
 
   const handleAddTodo = useCallback(
-    (newTodo: Todo) => {
+    (newTodo: ITodo) => {
       addTodo(newTodo)
         .then(() => setTodos((prev) => prev.concat(newTodo)))
         .catch(console.log);
@@ -73,17 +88,24 @@ export function TodoList() {
       .catch(console.log);
   }, [setTodos, removeTodo]);
 
+  const handleSetFilter = useCallback(
+    (filter: FilterOptions) => {
+      setFilter(filter);
+    },
+    [setFilter]
+  );
+
   return (
     <>
       <Bar onAddTodo={handleAddTodo} />
       <List
-        todos={todos}
+        todos={listContent}
         onRemoveTodo={handleRemoveTodo}
         onToggleCompleteTodo={handleToggleCompleteTodo}
         onClearCompletedTodos={handleClearCompletedTodos}
         incompletedTodosNumber={incompletedTodos.length}
       />
-      <Filter />
+      <Filter currentFilter={filter} onSetFilter={handleSetFilter} />
     </>
   );
 }

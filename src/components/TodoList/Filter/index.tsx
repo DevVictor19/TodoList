@@ -1,31 +1,14 @@
+import { FilterOptions } from "../../../ts/types/FilterOptions";
 import { Card } from "../../Card";
 
-type FilterOptions = "all" | "active" | "completed";
-
-const filter: FilterOptions = "all";
 const activeClassStyles = "text-[#3A7CFD] font-bold";
 
-export function Filter() {
-  let allItems = false;
-  let activeItems = false;
-  let completedItems = false;
+interface Props {
+  onSetFilter: (filter: FilterOptions) => void;
+  currentFilter: FilterOptions;
+}
 
-  switch (filter) {
-    case "all":
-      allItems = true;
-      break;
-    case "active":
-      activeItems = true;
-      break;
-    case "completed":
-      completedItems = true;
-      break;
-  }
-
-  const handleSetFilter = (filter: FilterOptions) => {
-    alert("set filter: " + filter);
-  };
-
+export function Filter({ onSetFilter, currentFilter }: Props) {
   return (
     <Card styleClasses="mt-4">
       <nav
@@ -33,20 +16,20 @@ export function Filter() {
       flex items-center justify-center gap-5 w-full"
       >
         <button
-          className={allItems ? activeClassStyles : ""}
-          onClick={() => handleSetFilter("all")}
+          className={currentFilter === "all" ? activeClassStyles : ""}
+          onClick={() => onSetFilter("all")}
         >
           All
         </button>
         <button
-          className={activeItems ? activeClassStyles : ""}
-          onClick={() => handleSetFilter("active")}
+          className={currentFilter === "active" ? activeClassStyles : ""}
+          onClick={() => onSetFilter("active")}
         >
           Active
         </button>
         <button
-          className={completedItems ? activeClassStyles : ""}
-          onClick={() => handleSetFilter("completed")}
+          className={currentFilter === "completed" ? activeClassStyles : ""}
+          onClick={() => onSetFilter("completed")}
         >
           Completed
         </button>
