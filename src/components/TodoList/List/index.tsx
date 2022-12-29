@@ -7,10 +7,8 @@ interface Props {
   todos: Todo[];
   onRemoveTodo: (id: string) => void;
   onToggleCompleteTodo: (id: string, currentState: boolean) => void;
-  onClearCompletedTodos: (
-    incompleteTodos: Todo[],
-    completedTodosId: string[]
-  ) => void;
+  onClearCompletedTodos: () => void;
+  incompletedTodosNumber: number;
 }
 
 export function List({
@@ -18,6 +16,7 @@ export function List({
   onRemoveTodo,
   onToggleCompleteTodo,
   onClearCompletedTodos,
+  incompletedTodosNumber,
 }: Props) {
   return (
     <Card styleClasses="mt-4 max-h-[368px] h-full">
@@ -34,7 +33,10 @@ export function List({
             />
           ))}
         </ul>
-        <ListMenu todos={todos} onClearCompletedTodos={onClearCompletedTodos} />
+        <ListMenu
+          incompletedTodosNumber={incompletedTodosNumber}
+          onClearCompletedTodos={onClearCompletedTodos}
+        />
       </div>
     </Card>
   );

@@ -13,6 +13,17 @@ export function TodoList() {
     currentUser!.uid
   );
 
+  const completedTodos: Todo[] = [];
+  const incompletedTodos: Todo[] = [];
+
+  todos.forEach((todo) => {
+    if (todo.completed) {
+      completedTodos.push(todo);
+    } else {
+      incompletedTodos.push(todo);
+    }
+  });
+
   useEffect(() => {
     getTodos().then(setTodos).catch(console.log);
   }, []);
@@ -50,20 +61,17 @@ export function TodoList() {
     [setTodos, toggleCompleteTodo]
   );
 
-  const handleClearCompletedTodos = useCallback(
-    (incompleteTodos: Todo[], completedTodosId: string[]) => {
-      let promises: Promise<void>[] = [];
+  const handleClearCompletedTodos = useCallback(() => {
+    let promises: Promise<void>[] = [];
 
-      completedTodosId.forEach((id) => {
-        promises.push(removeTodo(id));
-      });
+    completedTodos.forEach((todo) => {
+      promises.push(removeTodo(todo.id));
+    });
 
-      Promise.all(promises)
-        .then(() => setTodos(incompleteTodos))
-        .catch(console.log);
-    },
-    [setTodos, removeTodo]
-  );
+    Promise.all(promises)
+      .then(() => setTodos(incompletedTodos))
+      .catch(console.log);
+  }, [setTodos, removeTodo]);
 
   return (
     <>
@@ -73,6 +81,7 @@ export function TodoList() {
         onRemoveTodo={handleRemoveTodo}
         onToggleCompleteTodo={handleToggleCompleteTodo}
         onClearCompletedTodos={handleClearCompletedTodos}
+        incompletedTodosNumber={incompletedTodos.length}
       />
       <Filter />
     </>
