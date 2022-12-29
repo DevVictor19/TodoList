@@ -9,7 +9,7 @@ import { useTodo } from "../../hooks/useTodo";
 export function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const { currentUser } = useAuth();
-  const { getTodos, addTodo } = useTodo(currentUser!.uid);
+  const { getTodos, addTodo, removeTodo } = useTodo(currentUser!.uid);
 
   useEffect(() => {
     getTodos().then(setTodos).catch(console.log);
@@ -26,7 +26,9 @@ export function TodoList() {
 
   const handleRemoveTodo = useCallback(
     (id: string) => {
-      setTodos((prev) => prev.filter((todo) => todo.id !== id));
+      removeTodo(id)
+        .then(() => setTodos((prev) => prev.filter((todo) => todo.id !== id)))
+        .catch(console.log);
     },
     [setTodos]
   );
@@ -49,7 +51,7 @@ export function TodoList() {
       <Bar onAddTodo={handleAddTodo} />
       <List
         todos={todos}
-        onRemove={handleRemoveTodo}
+        onRemoveTodo={handleRemoveTodo}
         onToggleComplete={handleToggleCompleteTodo}
       />
       <Filter />

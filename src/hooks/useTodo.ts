@@ -1,4 +1,11 @@
-import { collection, doc, getDocs, query, setDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import { db } from "../firebase.config";
 import { Todo } from "../interfaces/Todo";
 
@@ -29,8 +36,17 @@ export function useTodo(userId: string) {
     }
   };
 
+  const removeTodo = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, "users", userId, "todos", id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return {
     getTodos,
     addTodo,
+    removeTodo,
   };
 }

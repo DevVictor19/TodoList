@@ -5,11 +5,11 @@ import { ListMenu } from "./ListMenu";
 
 interface Props {
   todos: Todo[];
-  onRemove: (id: string) => void;
+  onRemoveTodo: (id: string) => void;
   onToggleComplete: (id: string, newState: boolean) => void;
 }
 
-export function List({ todos, onRemove, onToggleComplete }: Props) {
+export function List({ todos, onRemoveTodo, onToggleComplete }: Props) {
   return (
     <Card styleClasses="mt-4 max-h-[368px] h-full">
       <div>
@@ -20,7 +20,7 @@ export function List({ todos, onRemove, onToggleComplete }: Props) {
               id={todo.id}
               name={todo.name}
               completed={todo.completed}
-              onRemove={onRemove}
+              onRemoveTodo={onRemoveTodo}
               onToggleComplete={onToggleComplete}
             />
           ))}

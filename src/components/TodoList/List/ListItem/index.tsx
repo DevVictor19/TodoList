@@ -7,7 +7,7 @@ import { db } from "../../../../firebase.config";
 const buttonActiveStyles = "bg-gradient-to-br from-[#55DDFF] to-[#C058F3]";
 
 interface Props extends Todo {
-  onRemove: (id: string) => void;
+  onRemoveTodo: (id: string) => void;
   onToggleComplete: (id: string, newState: boolean) => void;
 }
 
@@ -15,7 +15,7 @@ export function ListItem({
   name,
   completed,
   id,
-  onRemove,
+  onRemoveTodo,
   onToggleComplete,
 }: Props) {
   const { currentUser } = useAuth();
@@ -33,13 +33,8 @@ export function ListItem({
     }
   };
 
-  const handleRemove = async (id: string) => {
-    try {
-      await deleteDoc(doc(db, "users", currentUser!.uid, "todos", id));
-      onRemove(id);
-    } catch (e) {
-      console.log(e);
-    }
+  const handleRemove = (id: string) => {
+    onRemoveTodo(id);
   };
 
   return (
