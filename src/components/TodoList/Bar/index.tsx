@@ -15,7 +15,7 @@ export function Bar({ onAddTodo }: Props) {
     if (!inputRef.current?.value) return;
 
     const newTodo: ITodo = {
-      name: inputRef.current.value,
+      name: inputRef.current.value.trim(),
       id: crypto.randomUUID(),
       completed: false,
     };
