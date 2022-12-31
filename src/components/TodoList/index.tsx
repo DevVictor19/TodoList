@@ -18,6 +18,14 @@ export function TodoList() {
   const completedTodos: ITodo[] = [];
   const incompletedTodos: ITodo[] = [];
 
+  todos.forEach((todo) => {
+    if (todo.completed) {
+      completedTodos.push(todo);
+    } else {
+      incompletedTodos.push(todo);
+    }
+  });
+
   let listContent: ITodo[] = [];
 
   switch (filter) {
@@ -30,14 +38,6 @@ export function TodoList() {
     default:
       listContent = todos;
   }
-
-  todos.forEach((todo) => {
-    if (todo.completed) {
-      completedTodos.push(todo);
-    } else {
-      incompletedTodos.push(todo);
-    }
-  });
 
   useEffect(() => {
     getTodos().then(setTodos).catch(console.log);
