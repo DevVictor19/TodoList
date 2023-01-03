@@ -2,15 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import { Bar } from "./Bar";
 import { Filter } from "./Filter";
 import { List } from "./List";
-import { useAuth } from "../../hooks/useAuth";
 import { ITodo } from "../../ts/interfaces/Todo";
-import { useFirestore } from "../../hooks/useFirestore";
+import { useFirestoreTodos } from "../../hooks/useFirestoreTodos";
 import { FilterOptions } from "../../ts/types/FilterOptions";
 import { useTodos } from "../../hooks/useTodos";
 
 export function TodoList() {
-  const { currentUser } = useAuth();
-
   const {
     todos: localTodos,
     setTodos: setLocalTodos,
@@ -24,7 +21,7 @@ export function TodoList() {
     addTodo: addFirestoreTodo,
     removeTodo: removeFirestoreTodo,
     toggleCompleteTodo: toggleCompleteFirestoreTodo,
-  } = useFirestore(currentUser!.uid);
+  } = useFirestoreTodos();
 
   const [filter, setFilter] = useState<FilterOptions>("all");
 
