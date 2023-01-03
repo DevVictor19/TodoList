@@ -9,8 +9,10 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase.config";
 import { ITodo } from "../ts/interfaces/Todo";
+import { useAuth } from "./useAuth";
 
-export function useFirestore(userId: string) {
+export function useFirestoreTodos() {
+  const userId = useAuth().currentUser!.uid;
   const collectionRef = collection(db, "users", userId, "todos");
 
   const getTodos = async () => {
