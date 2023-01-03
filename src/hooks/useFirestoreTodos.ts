@@ -16,45 +16,21 @@ export function useFirestoreTodos() {
   const collectionRef = collection(db, "users", userId, "todos");
 
   const getTodos = async () => {
-    let dbTodos: ITodo[] = [];
-
-    try {
-      const querySnapShot = await getDocs(query(collectionRef));
-
-      querySnapShot.forEach((doc) => {
-        dbTodos.push(doc.data() as ITodo);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-
-    return dbTodos;
+    return getDocs(query(collectionRef));
   };
 
-  const addTodo = async (newTodo: ITodo) => {
-    try {
-      await setDoc(doc(db, "users", userId, "todos", newTodo.id), newTodo);
-    } catch (error) {
-      console.log(error);
-    }
+  const addTodo = (newTodo: ITodo) => {
+    return setDoc(doc(db, "users", userId, "todos", newTodo.id), newTodo);
   };
 
-  const removeTodo = async (id: string) => {
-    try {
-      await deleteDoc(doc(db, "users", userId, "todos", id));
-    } catch (error) {
-      console.log(error);
-    }
+  const removeTodo = (id: string) => {
+    return deleteDoc(doc(db, "users", userId, "todos", id));
   };
 
   const toggleCompleteTodo = async (id: string, currentState: boolean) => {
-    try {
-      await updateDoc(doc(db, "users", userId, "todos", id), {
-        completed: !currentState,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    return updateDoc(doc(db, "users", userId, "todos", id), {
+      completed: !currentState,
+    });
   };
 
   return {
