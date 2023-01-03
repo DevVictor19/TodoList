@@ -6,19 +6,32 @@ import { useAuth } from "../../hooks/useAuth";
 import { ITodo } from "../../ts/interfaces/Todo";
 import { useFirestore } from "../../hooks/useFirestore";
 import { FilterOptions } from "../../ts/types/FilterOptions";
+import { useTodos } from "../../hooks/useTodos";
 
 export function TodoList() {
-  const [todos, setTodos] = useState<ITodo[]>([]);
-  const [filter, setFilter] = useState<FilterOptions>("all");
   const { currentUser } = useAuth();
-  const { getTodos, addTodo, removeTodo, toggleCompleteTodo } = useFirestore(
-    currentUser!.uid
-  );
+
+  const {
+    todos: localTodos,
+    setTodos: setLocalTodos,
+    addTodo: addLocalTodo,
+    removeTodo: removeLocalTodo,
+    toggleCompleteTodo: toggleCompleteLocalTodo,
+  } = useTodos();
+
+  const {
+    getTodos: getFirestoreTodos,
+    addTodo: addFirestoreTodo,
+    removeTodo: removeFirestoreTodo,
+    toggleCompleteTodo: toggleCompleteFirestoreTodo,
+  } = useFirestore(currentUser!.uid);
+
+  const [filter, setFilter] = useState<FilterOptions>("all");
 
   const completedTodos: ITodo[] = [];
   const incompletedTodos: ITodo[] = [];
 
-  todos.forEach((todo) => {
+  localTodos.forEach((todo) => {
     if (todo.completed) {
       completedTodos.push(todo);
     } else {
@@ -36,57 +49,51 @@ export function TodoList() {
       listContent = completedTodos;
       break;
     default:
-      listContent = todos;
+      listContent = localTodos;
   }
 
   useEffect(() => {
-    getTodos().then(setTodos).catch(console.log);
+    getFirestoreTodos().then(setLocalTodos).catch(console.log);
   }, []);
 
   const handleAddTodo = useCallback(
     (newTodo: ITodo) => {
-      addTodo(newTodo)
-        .then(() => setTodos((prev) => prev.concat(newTodo)))
+      addFirestoreTodo(newTodo)
+        .then(() => addLocalTodo(newTodo))
         .catch(console.log);
     },
-    [addTodo, setTodos]
+    [addFirestoreTodo, addLocalTodo]
   );
 
   const handleRemoveTodo = useCallback(
     (id: string) => {
-      removeTodo(id)
-        .then(() => setTodos((prev) => prev.filter((todo) => todo.id !== id)))
+      removeFirestoreTodo(id)
+        .then(() => removeLocalTodo(id))
         .catch(console.log);
     },
-    [setTodos, removeTodo]
+    [removeFirestoreTodo, removeLocalTodo]
   );
 
   const handleToggleCompleteTodo = useCallback(
     (id: string, currentState: boolean) => {
-      toggleCompleteTodo(id, currentState).then(() => {
-        setTodos((prev) =>
-          prev.map((todo) => ({
-            id: todo.id,
-            name: todo.name,
-            completed: todo.id === id ? !currentState : todo.completed,
-          }))
-        );
-      });
+      toggleCompleteFirestoreTodo(id, currentState)
+        .then(() => toggleCompleteLocalTodo(id, currentState))
+        .catch(console.log);
     },
-    [setTodos, toggleCompleteTodo]
+    [toggleCompleteFirestoreTodo, toggleCompleteLocalTodo]
   );
 
   const handleClearCompletedTodos = useCallback(() => {
-    let promises: Promise<void>[] = [];
+    const promises: Promise<void>[] = [];
 
     completedTodos.forEach((todo) => {
-      promises.push(removeTodo(todo.id));
+      promises.push(removeFirestoreTodo(todo.id));
     });
 
     Promise.all(promises)
-      .then(() => setTodos(incompletedTodos))
+      .then(() => setLocalTodos(incompletedTodos))
       .catch(console.log);
-  }, [setTodos, removeTodo]);
+  }, [removeFirestoreTodo, setLocalTodos]);
 
   const handleSetFilter = useCallback(
     (filter: FilterOptions) => {
