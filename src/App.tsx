@@ -10,7 +10,7 @@ export function App() {
   return (
     <>
       <ToastContainer
-        className="text-sm"
+        className="text-sm lg:text-lg"
         limit={screenWidth > 480 ? 3 : 1}
         theme="colored"
         autoClose={screenWidth > 480 ? 2000 : 1000}
@@ -18,9 +18,9 @@ export function App() {
       <div
         className="min-h-screen bg-[#FAFAFA] dark:bg-[#171823] flex 
         justify-center bg-[url('/bg-light.png')] dark:bg-[url('/bg-dark.png')]
-        bg-no-repeat bg-[auto_240px]"
+        bg-no-repeat bg-[auto_240px] px-6 lg:bg-contain"
       >
-        <main className="max-w-[540px] w-full px-6">
+        <main className="max-w-[480px] lg:max-w-[540px] w-full">
           <Menu />
           <AppRoutes />
         </main>

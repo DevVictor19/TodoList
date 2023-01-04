@@ -10,10 +10,10 @@ interface Props {
 
 export function Filter({ onSetFilter, currentFilter }: Props) {
   return (
-    <Card styleClasses="mt-4">
+    <Card styleClasses="mt-4 lg:mt-5">
       <nav
-        className="p-4 text-[#9495A5] dark:text-[#5B5E7E] text-sm
-      flex items-center justify-center gap-5 w-full"
+        className="p-4 lg:p-5 text-[#9495A5] dark:text-[#5B5E7E] text-sm
+      flex items-center justify-center gap-5 w-full lg:text-sm mb-6"
       >
         <button
           className={currentFilter === "all" ? activeClassStyles : ""}

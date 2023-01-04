@@ -1,12 +1,14 @@
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useCallback } from "react";
 import { UserCircle, SignOut } from "phosphor-react";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useAuth } from "../../../hooks/useAuth";
 import { Card } from "../../Card";
 import { toast } from "react-toastify";
+import { useScreenWidth } from "../../../hooks/useScreenWidth";
 
 export function Profile() {
   const { logout } = useAuth();
+  const screenWidth = useScreenWidth();
 
   const handleLogout = useCallback(async () => {
     try {
@@ -21,7 +23,7 @@ export function Profile() {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         <button>
-          <UserCircle size={22} weight="fill" />
+          <UserCircle size={screenWidth > 1024 ? 26 : 22} weight="fill" />
         </button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Portal>

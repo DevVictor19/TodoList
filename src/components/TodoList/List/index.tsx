@@ -19,7 +19,7 @@ export function List({
   incompletedTodosNumber,
 }: Props) {
   return (
-    <Card styleClasses="mt-4 max-h-[368px] h-full">
+    <Card styleClasses="mt-4 lg:mt-5 max-h-[368px] h-full">
       <div>
         <ul className="max-h-[317px] h-[315px] overflow-auto">
           {todos.map((todo) => (

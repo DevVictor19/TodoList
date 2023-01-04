@@ -17,8 +17,10 @@ export function ListMenu({
           border-t-[0.5px] border-[#E3E4F1] dark:border-[#393A4B]
           text-[#9495A5] dark:text-[#5B5E7E] text-xs"
     >
-      <h1>{incompletedTodosNumber} items left</h1>
-      <button onClick={handleClearCompleted}>Clear Completed</button>
+      <h1 className="lg:text-sm">{incompletedTodosNumber} items left</h1>
+      <button className="lg:text-sm" onClick={handleClearCompleted}>
+        Clear Completed
+      </button>
     </section>
   );
 }

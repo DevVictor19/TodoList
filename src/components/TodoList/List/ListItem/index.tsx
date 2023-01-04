@@ -25,11 +25,11 @@ export function ListItem({
 
   return (
     <li
-      className="flex items-center px-5 py-4 first:border-none border-t-[0.5px] 
+      className="flex items-center px-5 lg:px-6 py-4 lg:py-5 first:border-none border-t-[0.5px] 
     border-[#E3E4F1] dark:border-[#393A4B]"
     >
       <button
-        className={`w-5 h-5 bg-transparent border-[1px] rounded-full
+        className={`w-5 lg:w-6 h-5 lg:h-6 bg-transparent border-[1px] rounded-full
         dark:border-[#393A4B] flex justify-center items-center ${
           completed && buttonActiveStyles
         }`}
@@ -43,7 +43,9 @@ export function ListItem({
         />
       </button>
       <p
-        className={`ml-3 text-xs ${completed && "line-through"} ${
+        className={`ml-3 lg:ml-6 text-xs lg:text-lg ${
+          completed && "line-through"
+        } ${
           completed
             ? "text-[#D1D2DA] dark:text-[#4D5067]"
             : "text-[#494C6B] dark:text-[#C8CBE7]"
