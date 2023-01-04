@@ -1,22 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
+import { useFirestoreTodos } from "../../hooks/useFirestoreTodos";
+import { useTodos } from "../../hooks/useTodos";
 import { toast } from "react-toastify";
 import { Bar } from "./Bar";
 import { Filter } from "./Filter";
 import { List } from "./List";
 import { ITodo } from "../../ts/interfaces/Todo";
-import { useFirestoreTodos } from "../../hooks/useFirestoreTodos";
 import { FilterOptions } from "../../ts/types/FilterOptions";
-import { useTodos } from "../../hooks/useTodos";
-import { useTheme } from "../../hooks/useTheme";
 
 export function TodoList() {
-  const { theme } = useTheme();
-
-  const toastConfig = {
-    autoClose: 3000,
-    theme: theme,
-  };
-
   const {
     todos: localTodos,
     setTodos: setLocalTodos,
@@ -72,7 +64,7 @@ export function TodoList() {
       .then(setLocalTodos)
       .catch((e) => {
         console.log(e);
-        toast.error("Ops, something went wrong...", toastConfig);
+        toast.error("Ops, something went wrong...");
       });
   }, []);
 
@@ -81,11 +73,12 @@ export function TodoList() {
       addFirestoreTodo(newTodo)
         .then(() => {
           addLocalTodo(newTodo);
-          toast.success("New todo added!", toastConfig);
+
+          toast.success("New todo added!");
         })
         .catch((e) => {
           console.log(e);
-          toast.error("Ops, something went wrong...", toastConfig);
+          toast.error("Ops, something went wrong...");
         });
     },
     [addFirestoreTodo, addLocalTodo]
@@ -96,11 +89,11 @@ export function TodoList() {
       removeFirestoreTodo(id)
         .then(() => {
           removeLocalTodo(id);
-          toast.warn("Todo removed!", toastConfig);
+          toast.warn("Todo removed!");
         })
         .catch((e) => {
           console.log(e);
-          toast.error("Ops, something went wrong...", toastConfig);
+          toast.error("Ops, something went wrong...");
         });
     },
     [removeFirestoreTodo, removeLocalTodo]
@@ -114,18 +107,23 @@ export function TodoList() {
             ? "Todo marked as uncompleted"
             : "Todo marked as completed";
 
-          toast.info(toastMessage, toastConfig);
           toggleCompleteLocalTodo(id, currentState);
+          toast.info(toastMessage);
         })
         .catch((e) => {
           console.log(e);
-          toast.error("Ops, something went wrong...", toastConfig);
+          toast.error("Ops, something went wrong...");
         });
     },
     [toggleCompleteFirestoreTodo, toggleCompleteLocalTodo]
   );
 
   const handleClearCompletedTodos = useCallback(() => {
+    if (completedTodos.length === 0) {
+      toast.warn("Have no todos to be cleared...", { autoClose: 3000 });
+      return;
+    }
+
     const promises: Promise<void>[] = [];
 
     completedTodos.forEach((todo) => {
@@ -134,12 +132,12 @@ export function TodoList() {
 
     Promise.all(promises)
       .then(() => {
-        toast.warning("Completed todos cleared", toastConfig);
+        toast.info("Completed todos cleared");
         setLocalTodos(incompletedTodos);
       })
       .catch((e) => {
         console.log(e);
-        toast.error("Ops, something went wrong...", toastConfig);
+        toast.error("Ops, something went wrong...");
       });
   }, [removeFirestoreTodo, setLocalTodos]);
 
