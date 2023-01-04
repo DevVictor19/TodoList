@@ -1,6 +1,7 @@
 import { useRef, FormEvent } from "react";
 import { Check } from "phosphor-react";
 import { ITodo } from "../../../ts/interfaces/Todo";
+import { toast } from "react-toastify";
 
 interface Props {
   onAddTodo: (newTodo: ITodo) => void;
@@ -12,7 +13,10 @@ export function Bar({ onAddTodo }: Props) {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!inputRef.current?.value) return;
+    if (!inputRef.current?.value) {
+      toast.warn("Insert something before submitting");
+      return;
+    }
 
     const newTodo: ITodo = {
       name: inputRef.current.value.trim(),
