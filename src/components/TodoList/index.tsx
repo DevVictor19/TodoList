@@ -74,7 +74,7 @@ export function TodoList() {
         .then(() => {
           addLocalTodo(newTodo);
 
-          toast.success("New todo added!");
+          toast.success("New todo added");
         })
         .catch((e) => {
           console.log(e);
@@ -89,7 +89,7 @@ export function TodoList() {
       removeFirestoreTodo(id)
         .then(() => {
           removeLocalTodo(id);
-          toast.warn("Todo removed!");
+          toast.warn("Todo removed");
         })
         .catch((e) => {
           console.log(e);
