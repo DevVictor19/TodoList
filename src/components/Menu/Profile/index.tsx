@@ -3,6 +3,7 @@ import { UserCircle, SignOut } from "phosphor-react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useAuth } from "../../../hooks/useAuth";
 import { Card } from "../../Card";
+import { toast } from "react-toastify";
 
 export function Profile() {
   const { logout } = useAuth();
@@ -10,6 +11,7 @@ export function Profile() {
   const handleLogout = useCallback(async () => {
     try {
       await logout();
+      toast.info("User logged out ");
     } catch (e) {
       console.log(e);
     }

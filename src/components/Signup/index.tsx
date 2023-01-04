@@ -2,6 +2,7 @@ import { FormEvent, useRef, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { Card } from "../Card";
+import { toast } from "react-toastify";
 
 export function Signup() {
   const { signup } = useAuth();
@@ -26,8 +27,7 @@ export function Signup() {
       passwordConfirm === "" ||
       passwordConfirm === undefined
     ) {
-      setError("Do not leave empty fields");
-      return;
+      return setError("Do not leave empty fields");
     }
 
     if (password !== passwordConfirm) {
@@ -38,6 +38,7 @@ export function Signup() {
       setError("");
       setLoading(true);
       await signup(email, password);
+      toast.success(`${email} was signed up!`);
     } catch (e) {
       setError("Failed to create an account");
       console.log(e);

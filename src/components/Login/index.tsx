@@ -2,6 +2,7 @@ import { useRef, useState, FormEvent } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { Card } from "../Card";
+import { toast } from "react-toastify";
 
 export function Login() {
   const { login } = useAuth();
@@ -30,8 +31,10 @@ export function Login() {
       setError("");
       setLoading(true);
       await login(email, password);
+      toast.info(`Logged as ${email}`);
     } catch (e) {
       setError("Failed to Log in");
+      toast.error("Invalid email or password");
       console.log(e);
     }
 
