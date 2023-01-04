@@ -15,7 +15,7 @@ export function useFirestoreTodos() {
   const userId = useAuth().currentUser!.uid;
   const collectionRef = collection(db, "users", userId, "todos");
 
-  const getTodos = async () => {
+  const getTodos = () => {
     return getDocs(query(collectionRef));
   };
 
@@ -27,7 +27,7 @@ export function useFirestoreTodos() {
     return deleteDoc(doc(db, "users", userId, "todos", id));
   };
 
-  const toggleCompleteTodo = async (id: string, currentState: boolean) => {
+  const toggleCompleteTodo = (id: string, currentState: boolean) => {
     return updateDoc(doc(db, "users", userId, "todos", id), {
       completed: !currentState,
     });
