@@ -85,7 +85,7 @@ Observe conjunto de pares chave-valor. Eles serão substituidos no arquivo .env.
 
 <br />
 
-Na pasta src crie um arquivo com o seguinte nome: .env.local
+No diretório do projeto crie um arquivo com o seguinte nome: .env.local
 
 Seu arquivo deve seguir essa estrutura:
 
