@@ -87,7 +87,7 @@ Observe conjunto de pares chave-valor. Eles serão substituidos no arquivo .env.
 
 Na pasta src crie um arquivo com o seguinte nome: .env.local
 
-Seu arquivo de seguir essa estrutura:
+Seu arquivo deve seguir essa estrutura:
 
 <br />
 
