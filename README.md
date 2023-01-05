@@ -41,5 +41,16 @@ No serviço de autenticação só é utilizado a validação por email e senha, 
   <img src="https://user-images.githubusercontent.com/90735982/210674975-14b6434d-2ce2-4d98-88de-95cf3431d310.png" width="800" />
 </div>
 
+Após ativar os serviços adicione a seguinte regra no firestore database, isso vai assegurar que apenas usuários autenticados e donos do conteúdo possam fazer alterações na ramificação.
 
-
+```js
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow only authenticated content owners access
+    match /users/{userId}/todos/{documents=**} {
+      allow read, write, delete: if request.auth != null && request.auth.uid == userId
+    }
+  }
+}
+```
