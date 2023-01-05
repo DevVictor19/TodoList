@@ -28,8 +28,10 @@ TodoList é uma aplicação react que possui autenticação firebase e base de d
 
 ## Executando o projeto de forma local
 
-### Para executar o projeto é necessário executar alguns passos antes, são eles:
+### Configuração do firebase
 
-1. Configurar firebase
-2. Instalar as dependências (via npm)
-3. Rodar de forma local
+Primeiro, é preciso criar uma conta no firebase e configurar alguns serviços.
+
+Após criar a conta, crie um novo projeto e adicione os serviços de autenticação e firestore database.
+
+No serviço de autenticação só é utilizado a validação por email e senha, adicione-o no projeto.
