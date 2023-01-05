@@ -14,6 +14,7 @@ TodoList é uma aplicação react que possui autenticação firebase e base de d
 
 - Firebase
 - TypeScript
+- Tailwind css
 - React
 - React Toastify
 - RadixUi
