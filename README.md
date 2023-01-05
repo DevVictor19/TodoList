@@ -35,3 +35,11 @@ Primeiro, é preciso criar uma conta no firebase e configurar alguns serviços.
 Após criar a conta, crie um novo projeto e adicione os serviços de autenticação e firestore database.
 
 No serviço de autenticação só é utilizado a validação por email e senha, adicione-o no projeto.
+
+<div>
+  <img src="https://user-images.githubusercontent.com/90735982/210674971-5db3e255-0fdb-4019-89e0-cc9da12456db.png" width="800" />
+  <img src="https://user-images.githubusercontent.com/90735982/210674975-14b6434d-2ce2-4d98-88de-95cf3431d310.png" width="800" />
+</div>
+
+
+
