@@ -69,7 +69,7 @@ service cloud.firestore {
 
 Agora é preciso registrar o seu projeto web e adicionar as váriaveis de ambiente.
 
-Na visão geral do proejto voçê vai encontrar uma aba para adicionar seu projeto web:
+Na visão geral do proejto você vai encontrar uma aba para adicionar seu projeto web:
 
 <br/>
 
