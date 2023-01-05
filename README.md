@@ -36,13 +36,19 @@ Após criar a conta, crie um novo projeto e adicione os serviços de autenticaç
 
 No serviço de autenticação só é utilizado a validação por email e senha, adicione-o no projeto.
 
+<br/>
+
 <div>
   <img src="https://user-images.githubusercontent.com/90735982/210674971-5db3e255-0fdb-4019-89e0-cc9da12456db.png" width="800" />
   <img src="https://user-images.githubusercontent.com/90735982/210674975-14b6434d-2ce2-4d98-88de-95cf3431d310.png" width="800" />
   <img src="https://user-images.githubusercontent.com/90735982/210676102-5c1f982c-0751-4af3-a245-ff5d611a96be.png" width="800" />
 </div>
 
+<br/>
+
 Após ativar os serviços adicione a seguinte regra no firestore database, isso vai assegurar que apenas usuários autenticados e donos do conteúdo possam fazer alterações na ramificação.
+
+<br/>
 
 ```js
 rules_version = '2';
@@ -57,3 +63,35 @@ service cloud.firestore {
 }
 ```
 <img src="https://user-images.githubusercontent.com/90735982/210676587-3e015bd7-ee08-4f7f-a7cf-66046bb7932a.png" width="800" />
+
+<br/>
+
+Agora é preciso registrar o seu projeto web e adicionar as váriaveis de ambiente.
+
+Na visão geral do proejto voçê vai encontrar uma aba para adicionar seu projeto web:
+
+<br/>
+
+![Captura de Tela (91)](https://user-images.githubusercontent.com/90735982/210679354-df26864b-09d8-47d9-a4e6-63b6fb0a12be.png)
+
+<br/>
+
+Observe conjunto de pares chave-valor. Eles serão substituidos no arquivo .env.local que iremos criar a seguir.
+
+<br/>
+
+![Captura de Tela (93)](https://user-images.githubusercontent.com/90735982/210679711-56e30552-e675-40b0-b7b3-b8286e34f279.png)
+
+<br /> 
+
+Na pasta src crie um arquivo com o seguinte nome: .env.local 
+
+Seu arquivo de seguir essa estrutura:
+
+<br />
+
+![env](https://user-images.githubusercontent.com/90735982/210680103-3ccec2ad-9343-4354-9a53-c690733e28ad.png)
+
+<br /> 
+
+Lembrando que os valores após "=" devem ser os seus, aqueles mostrados no momento de registrar o app web.
