@@ -4,6 +4,9 @@
 
 TodoList é uma aplicação react que possui autenticação firebase e base de dados através do firestore. Sendo assim, cada usuário possui o seu armazenamento pessoal de <i>Todos</i> (tarefas).
 
+## Deploy
+vercel: https://devvictor19-todolist.vercel.app/
+
 ## Pricipais funcionalidades
 
 - CRUD das <i>Todos</i> por meio do firestore
@@ -14,6 +17,7 @@ TodoList é uma aplicação react que possui autenticação firebase e base de d
 
 - Firebase
 - TypeScript
+- Tailwind css
 - React
 - React Toastify
 - RadixUi
@@ -69,7 +73,7 @@ service cloud.firestore {
 
 Agora é preciso registrar o seu projeto web e adicionar as váriaveis de ambiente.
 
-Na visão geral do proejto voçê vai encontrar uma aba para adicionar seu projeto web:
+Na visão geral do proejto você vai encontrar uma aba para adicionar seu projeto web:
 
 <br/>
 
@@ -85,9 +89,9 @@ Observe conjunto de pares chave-valor. Eles serão substituidos no arquivo .env.
 
 <br />
 
-Na pasta src crie um arquivo com o seguinte nome: .env.local
+No diretório do projeto crie um arquivo com o seguinte nome: .env.local
 
-Seu arquivo de seguir essa estrutura:
+Seu arquivo deve seguir essa estrutura:
 
 <br />
 
